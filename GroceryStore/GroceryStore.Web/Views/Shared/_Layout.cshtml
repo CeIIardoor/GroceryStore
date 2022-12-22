@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>@ViewData["Title"] - Cellardoor Grocery Store</title>
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/fontawesome/all.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <img src="~/img/logo.png" alt="logo" width="30" class="d-inline-block align-text-top">
+            <span class="visually-hidden">Cellardoor</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" asp-action="Index" asp-controller="Home">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <vc:categories/>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Privacy" asp-controller="Home">Privacy</a>
+                </li>
+            </ul>
+            @if (ViewBag.CurrentCart != null)
+            {
+                @await Html.PartialAsync("_CartButton")
+            }
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+@await RenderSectionAsync("Header", false)
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+        @RenderBody()
+        @Html.AntiForgeryToken()
+    </div>
+</section>
+
+<footer class="py-5">
+    <div class="container">
+        <p class="m-0 text-center">Copyright &copy; CeIIardoor @DateTime.Now.Year</p>
+    </div>
+</footer>
+
+<div id="product-modal-container"></div>
+
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/htmx.min.js"></script>
+<script src="~/js/_hyperscript.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

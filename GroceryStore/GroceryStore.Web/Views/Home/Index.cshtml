@@ -1,0 +1,45 @@
+﻿@model GroceryStore.Models.Home.IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    System.Diagnostics.Debug.Assert(Model != null, nameof(Model) + " != null");
+}
+
+@section Header
+{
+    <header class="bg-dark hero-section py-2 mt-4">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder hero-title">Cellardoor Grocery Store</h1>
+            </div>
+        </div>
+    </header>
+}
+
+<div class="row">
+    <form asp-action="Index" asp-controller="Home" method="GET">
+        <div class="input-group mb-5">
+            <span class="input-group-text" id="search-addon">
+                <i class="fa fa-search"></i>
+            </span>
+            <input type="text"
+                   id="query"
+                   asp-for="Query"
+                   hx-get
+                   hx-action="index"
+                   hx-controller="home"
+                   hx-route-category="@Model.Category?.Name"
+                   hx-target="#results"
+                   hx-swap="outerHtml"
+                   hx-trigger="keyup changed delay:250ms"
+                   hx-indicator="#loading"
+                   autocomplete="off"
+                   autofocus="autofocus"
+                   placeholder="Search"
+                   class="form-control"
+                   aria-describedby="search-addon">
+            <input type="hidden" asp-for="Category"/>
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("_Products")

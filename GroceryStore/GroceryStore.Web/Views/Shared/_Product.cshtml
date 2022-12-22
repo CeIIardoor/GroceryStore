@@ -1,0 +1,113 @@
+@model GroceryStore.Models.Home.ProductViewModel
+@{
+    System.Diagnostics.Debug.Assert(Model != null, nameof(Model) + " != null");
+    var id = $"shopItem-{Model.Info.Id}";
+}
+<div id="@id" class="col mb-5" 
+     @if (Model.Swap) { <text> hx-swap-oob="true" </text> }
+>
+    <div class="card h-100">
+        @if (Model.IsOnSale)
+        {
+            <!-- Sale badge-->
+            <div class="badge bg-danger text-white position-absolute m-tr-0_5">
+                <i class="fa fa-fire"></i>
+                Sale
+            </div>
+        }
+        <div id="@id-indicator" class="htmx-indicator badge bg-success text-white position-absolute m-tr-0_5">
+            <i class="fa fa-circle-notch fa-spin"></i> Updating
+        </div>
+        <!-- Product image-->
+        <img class="card-img-top img-responsive img-fluid" width="450" src="~/img/@Model.Info.ImageUrl" alt="@Model.Info.Name"/>
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">@Model.Info.Name</h5>
+                <!-- Product description-->
+                <p class="card-text ellipsis" product-description="@Model.Info.Description">
+                    @Model.Info.Description
+                </p>
+                <!-- Current inventory -->
+                <p class="card-text">
+                    <small class="text-muted fw-bolder">Current Inventory:</small>
+                    <small class="text-muted">@Model.Info.CurrentInventory</small>
+                </p>
+                <!-- Product Manufacturer-->
+                <p class="card-text">
+                    <small class="text-muted fw-bolder">Manufacturer:</small>
+                    <small class="text-muted">@Model.Info.Manufacturer</small>
+                </p>
+                <hr>
+                <!-- Product price-->
+                @Model.PriceDisplay
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+                @{
+                    var item = Cart.HasProduct(Model.Info.Id);
+                    var isInCart = item is {};
+                }
+                @if (Model.HasOptions)
+                {
+                    <a class="btn btn-outline-dark mt-auto position-relative"
+                       hx-get
+                       hx-action="Show"
+                       hx-controller="Products"
+                       hx-route-id="@Model.Info.Id"
+                       hx-target="#product-modal-container"
+                       _="on htmx:afterOnLoad call showModal()"
+                       href="#">
+                        View Options
+                        @if (isInCart)
+                        {
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden">In Cart</span>
+                            </span>
+                        }
+                    </a>
+                }
+                else
+                {
+                    <form hx-post
+                          hx-action="Add"
+                          hx-controller="Cart"
+                          hx-indicator="#@id-indicator">
+                        <input type="hidden" name="ProductId" value="@Model.Info.Id"/>
+                        @if (isInCart)
+                        {
+                            <div class="input-group mt-auto">
+                                <input type="number" min="0" max="100" class="form-control" name="Quantity" value="@item?.Quantity">
+                                <button
+                                    type="submit"
+                                    class="btn btn-outline-dark btn-sm">
+                                    Update
+                                </button>
+                                <button type="submit"
+                                        name="Remove"
+                                        value="true"
+                                        class="btn btn-outline-danger btn-sm">
+                                    <i class="fa fa-trash">
+                                        <span class="visually-hidden">Remove</span>
+                                    </i>
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-outline-dark mt-auto" href="#">Add to cart</button>
+                            <input type="hidden" class="form-control" name="Quantity" value="1">
+                        }
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.ShouldRenderCartButton)
+{
+    @await Html.PartialAsync("_CartButton")
+}
