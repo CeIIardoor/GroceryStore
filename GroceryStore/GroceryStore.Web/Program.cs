@@ -46,7 +46,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+        Path.Combine(Directory.GetCurrentDirectory(), "/GroceryStore/GroceryStore.Web/wwwroot")),
     RequestPath = ""
 });
 
