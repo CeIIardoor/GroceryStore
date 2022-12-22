@@ -45,9 +45,8 @@ if (!app.Environment.IsDevelopment())
 //make the content root path
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "/GroceryStore/GroceryStore.Web/wwwroot")),
-    RequestPath = ""
+    FileProvider = new PhysicalFileProvider("wwwroot"),
+    RequestPath = "/wwwroot"
 });
 
 //app.UseHttpsRedirection();
