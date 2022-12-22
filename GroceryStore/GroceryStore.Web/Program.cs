@@ -42,13 +42,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//make the content root path
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider("wwwroot"),
-    RequestPath = "/wwwroot"
-});
-
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseShoppingCart();
