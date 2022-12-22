@@ -3,6 +3,7 @@ using GroceryStore.Models.Cart;
 using GroceryStore.Web.Areas.Identity.Data.GroceryStore;
 using Microsoft.EntityFrameworkCore;
 using GroceryStore.Web.Data.GroceryStore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AuthDbContext>(
@@ -41,6 +42,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//make the content root path
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+    RequestPath = ""
+});
 
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
