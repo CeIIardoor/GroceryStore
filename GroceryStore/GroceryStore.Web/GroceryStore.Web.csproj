@@ -28,4 +28,8 @@
       <ProjectReference Include="..\GroceryStore.Models\GroceryStore.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>
