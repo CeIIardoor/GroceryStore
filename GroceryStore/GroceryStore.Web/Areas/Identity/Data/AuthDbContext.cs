@@ -13,6 +13,12 @@ public class AuthDbContext : IdentityDbContext<User>
         : base(options)
     {
     }
+    
+    public void onConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("GroceryStore.Users.Db")
+            .LogTo(Console.WriteLine);
+    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -27,6 +33,7 @@ public class AuthDbContext : IdentityDbContext<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable("AspNetUsers");
             builder.Property(u => u.FirstName).HasMaxLength(50);
             builder.Property(u => u.LastName).HasMaxLength(50);
         }
