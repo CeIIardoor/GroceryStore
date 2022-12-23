@@ -3,11 +3,10 @@ using GroceryStore.Models.Cart;
 using GroceryStore.Web.Areas.Identity.Data.GroceryStore;
 using Microsoft.EntityFrameworkCore;
 using GroceryStore.Web.Data.GroceryStore;
-using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AuthDbContext>(
-    options => options.UseSqlite("Data Source=GroceryStore.Users.db")
+    options => options.UseSqlite("Data Source=GroceryStore/GroceryStore.Web/GroceryStore.Users.db")
     );
 builder.Services.AddDefaultIdentity<User>(
         options => options.SignIn.RequireConfirmedAccount = false
