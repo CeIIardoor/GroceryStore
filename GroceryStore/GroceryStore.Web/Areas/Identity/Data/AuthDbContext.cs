@@ -16,7 +16,9 @@ public class AuthDbContext : IdentityDbContext<User>
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=GroceryStore.Users.db");
+        optionsBuilder.UseSqlite("Data Source=GroceryStore.Users.db")
+            .LogTo(Console.WriteLine)
+            .EnableSensitiveDataLogging();
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
