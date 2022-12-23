@@ -16,7 +16,7 @@ public class AuthDbContext : IdentityDbContext<User>
     
     public void onConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("GroceryStore.Users.Db")
+        optionsBuilder.UseSqlite("Data Source=GroceryStore.Users.Db")
             .LogTo(Console.WriteLine);
     }
 

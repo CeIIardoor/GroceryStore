@@ -10,7 +10,6 @@ public class  StoreDbContext : DbContext
         => optionsBuilder
             .UseSqlite("Data Source=GroceryStore.Products.db")
             .LogTo(Console.WriteLine);
-    //Data Source=GroceryStore.Products.db for windows
     public DbSet<ShoppingCart> ShoppingCarts { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<Order> Orders { get; set; } = null!;
