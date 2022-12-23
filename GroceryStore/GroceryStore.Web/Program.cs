@@ -6,7 +6,7 @@ using GroceryStore.Web.Data.GroceryStore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AuthDbContext>(
-    options => options.UseSqlite("Data Source=GroceryStore/GroceryStore.Web/GroceryStore.Users.db")
+    options => options.UseSqlite("Data Source=GroceryStore.Users.db")
     );
 builder.Services.AddDefaultIdentity<User>(
         options => options.SignIn.RequireConfirmedAccount = false

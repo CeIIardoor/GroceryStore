@@ -8,7 +8,7 @@ public class  StoreDbContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder
-            .UseSqlite("Data Source=GroceryStore/GroceryStore.Web/GroceryStore.Products.db")
+            .UseSqlite("Data Source=GroceryStore.Products.db")
             .LogTo(Console.WriteLine);
     //Data Source=GroceryStore.Products.db for windows
     public DbSet<ShoppingCart> ShoppingCarts { get; set; } = null!;
