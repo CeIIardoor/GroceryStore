@@ -25,13 +25,16 @@ builder.Services.AddShoppingCart();
 var app = builder.Build();
 
 // migrate to latest database version
-
- using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<StoreDbContext>();
     await db.Database.MigrateAsync();
-    var auth = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
-    await auth.Database.MigrateAsync();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+    await db.Database.MigrateAsync();
 }
 
 // Configure the HTTP request pipeline.
