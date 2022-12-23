@@ -30,6 +30,8 @@ var app = builder.Build();
 {
     var db = scope.ServiceProvider.GetRequiredService<StoreDbContext>();
     await db.Database.MigrateAsync();
+    var auth = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+    await auth.Database.MigrateAsync();
 }
 
 // Configure the HTTP request pipeline.
