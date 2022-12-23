@@ -13,11 +13,10 @@ public class AuthDbContext : IdentityDbContext<User>
         : base(options)
     {
     }
-    
-    public void onConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=GroceryStore.Users.Db")
-            .LogTo(Console.WriteLine);
+        optionsBuilder.UseSqlite("Data Source=GroceryStore.Users.db");
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
